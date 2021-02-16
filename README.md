@@ -1,8 +1,11 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://mauricius.dev/images/laravel-vue.png" width="400"></a></p>
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://www.techalyst.com/content/uploads/editor-photos/blog/f4f731b1bfaa1c7b310c1a9a4b4918e14ffeaebc.png" width="400"></a></p>
 
 ## About This Project
 
 This project is made only for weDevs Ltd. use and check as assignment task. This project is made with Laravel and VUEJS (SPA). In this todo app we can add new tasks by writing task name and hit enter, we can edit in same manner, we can also delete specific task and can delete all completed tasks from database.
+
+## Database
+There is a folder named DB, in this folder there is the database.
 
 ## Requied Installation (If project not running properly)
 
