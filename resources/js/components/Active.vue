@@ -47,101 +47,108 @@
 </template>
 <script type="text/javascript">
   export default {
-        data() {
-            return {
-                name: '',
+    data() {
+        return {
+            name: '',
+            editname: '',
             tasks: {},
             counttasks: '0',
-            }
-        },
-      methods: {
-        getData(){
+        }
+    },
+    methods: {
+        getData() {
             axios.get('api/show/status/1')
-             .then((response)=>{
-               this.tasks = response.data.showbystatus
-             })
+                .then((response) => {
+                    this.tasks = response.data.showbystatus
+                })
         },
-        counttask(){
+        counttask() {
             axios.get('api/counttask')
-             .then((response)=>{
-               this.counttasks = response.data.counttask
-             })
+                .then((response) => {
+                    this.counttasks = response.data.counttask
+                })
         },
         validatedata: function(e) {
-            var self=this;
+            var self = this;
             if (e.keyCode === 13) {
                 axios.post('api/store', {
-                    name: this.name
-                  })
-                  .then(function (response) {
-                    self.getData();
-                    self.counttask();
-                    toastr.success('', 'To do Added.')
-                  })
-                  .catch(function (error) {
-                    console.log(error);
-                  });
-              } else if (e.keyCode === 50) {
+                        name: this.name
+                    })
+                    .then(function(response) {
+                        self.name = '';
+                        self.getData();
+                        self.counttask();
+                        toastr.success('', 'To do Added.')
+                    })
+                    .catch(function(error) {
+                        console.log(error);
+                    });
+            } else if (e.keyCode === 50) {
                 alert('@ was pressed');
-              }      
-          this.log += e.key;
+            }
+            this.log += e.key;
         },
         checkbox(id) {
-            var self=this;
-            axios.post('api/update/'+id, {
+            var self = this;
+            axios.post('api/update/' + id, {
                     name: this.name
-              })
-              .then(function (response) {
-                self.getData();
-                self.counttask();
-                toastr.success('', 'To do Completed.')
-              })
-              .catch(function (error) {
-                console.log(error);
-              });
+                })
+                .then(function(response) {
+                    self.getData();
+                    self.counttask();
+                    toastr.success('', 'To do Completed.')
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
         },
-        formcreate () {
-        },
-        handleInput: function(e){
+        formcreate() {},
+        handleInput: function(e) {
             this.editname = e.target.innerHTML;
             // console.log(this.editname);
         },
         editdata(id) {
-            var self=this;
-            if (!(this.editname)) {}else{
-            axios.post('api/update/task/'+id, {
-                editname: this.editname
-              })
-              .then(function (response) {
-                self.getData();
-                self.counttask();
-                document.getElementById('editname').contentEditable = false;
-                setInterval(document.getElementById('editname').contentEditable = true,1000)
-                toastr.success('', 'To do Edited.')
-              })
-              .catch(function (error) {
-                console.log(error);
-              });
-          }
+            var self = this;
+            if (!(this.editname)) {} else {
+                axios.post('api/update/task/' + id, {
+                        editname: this.editname
+                    })
+                    .then(function(response) {
+                        self.editname = '';
+                        self.getData();
+                        self.counttask();
+                        document.getElementById('editname').contentEditable = false;
+                        setInterval(document.getElementById('editname').contentEditable = true, 1000)
+                        toastr.success('', 'To do Edited.')
+                    })
+                    .catch(function(error) {
+                        console.log(error);
+                    });
+            }
         },
         deleteTask(id) {
-            var self=this;
-            axios.post('api/delete/'+id, {
+            var self = this;
+            axios.post('api/delete/' + id, {
                     name: this.name
-              })
-              .then(function (response) {
-                self.getData();
-                self.counttask();
-                toastr.success('', 'To do Deleted.')
-              })
-              .catch(function (error) {
-                console.log(error);
-              });
+                })
+                .then(function(response) {
+                    self.getData();
+                    self.counttask();
+                    toastr.success('', 'To do Deleted.')
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
         }
-      },
-        created() {
-            this.getData();
-            this.counttask();
-        },
-    };
+    },
+    filters: {
+        strippedContent: function(string) {
+            return string.replace(/<\/?[^>]+>/ig, " ");
+        }
+    },
+    created() {
+        this.getData();
+        this.counttask();
+    },
+  };
 </script>

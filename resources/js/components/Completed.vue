@@ -49,78 +49,78 @@
 </template>
 <script type="text/javascript">
 	export default {
-        data() {
-            return {
-              	name: '',
-		        tasks: {},
-		        counttasks: '0',
-            }
-        },
-      methods: {
-        getData(){
+    data() {
+        return {
+            name: '',
+            tasks: {},
+            counttasks: '0',
+        }
+    },
+    methods: {
+        getData() {
             axios.get('api/show/status/2')
-             .then((response)=>{
-               this.tasks = response.data.showbystatus
-             })
+                .then((response) => {
+                    this.tasks = response.data.showbystatus
+                })
         },
-        counttask(){
+        counttask() {
             axios.get('api/counttask')
-             .then((response)=>{
-               this.counttasks = response.data.counttask
-             })
+                .then((response) => {
+                    this.counttasks = response.data.counttask
+                })
         },
         validatedata: function(e) {
-            var self=this;
+            var self = this;
             if (e.keyCode === 13) {
                 axios.post('api/store', {
-                    name: this.name
-                  })
-                  .then(function (response) {
+                        name: this.name
+                    })
+                    .then(function(response) {
+                        self.getData();
+                        self.counttask();
+                        toastr.success('', 'To do Added.')
+                    })
+                    .catch(function(error) {
+                        console.log(error);
+                    });
+            } else if (e.keyCode === 50) {
+                alert('@ was pressed');
+            }
+            this.log += e.key;
+        },
+        formcreate() {
+            // do nothing ?
+        },
+        clearCompleted() {
+            var self = this;
+            axios.post('api/destroy/completed')
+                .then(function(response) {
                     self.getData();
                     self.counttask();
-                    toastr.success('', 'To do Added.')
-                  })
-                  .catch(function (error) {
+                    toastr.success('', 'Completed To do/s Deleted.')
+                })
+                .catch(function(error) {
                     console.log(error);
-                  });
-              } else if (e.keyCode === 50) {
-                alert('@ was pressed');
-              }      
-          this.log += e.key;
-        },
-        formcreate () {
-          // do nothing ?
-        },
-        clearCompleted () {
-          var self=this;
-            axios.post('api/destroy/completed')
-              .then(function (response) {
-                self.getData();
-                self.counttask();
-                toastr.success('', 'Completed To do/s Deleted.')
-              })
-              .catch(function (error) {
-                console.log(error);
-              });
+                });
         },
         deleteTask(id) {
-            var self=this;
-            axios.post('api/delete/'+id, {
+            var self = this;
+            axios.post('api/delete/' + id, {
                     name: this.name
-              })
-              .then(function (response) {
-                self.getData();
-                self.counttask();
-                toastr.success('', 'To do Deleted.')
-              })
-              .catch(function (error) {
-                console.log(error);
-              });
+                })
+                .then(function(response) {
+                    self.getData();
+                    self.counttask();
+                    toastr.success('', 'To do Deleted.')
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
         }
-      },
-        created() {
-            this.getData();
-            this.counttask();
-        },
-    };
+    },
+    created() {
+        this.getData();
+        this.counttask();
+    },
+  };
 </script>

@@ -1896,6 +1896,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       name: '',
+      editname: '',
       tasks: {},
       counttasks: '0'
     };
@@ -1922,6 +1923,7 @@ __webpack_require__.r(__webpack_exports__);
         axios.post('api/store', {
           name: this.name
         }).then(function (response) {
+          self.name = '';
           self.getData();
           self.counttask();
           toastr.success('', 'To do Added.');
@@ -1957,6 +1959,7 @@ __webpack_require__.r(__webpack_exports__);
         axios.post('api/update/task/' + id, {
           editname: this.editname
         }).then(function (response) {
+          self.editname = '';
           self.getData();
           self.counttask();
           document.getElementById('editname').contentEditable = false;
@@ -1978,6 +1981,11 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         console.log(error);
       });
+    }
+  },
+  filters: {
+    strippedContent: function strippedContent(string) {
+      return string.replace(/<\/?[^>]+>/ig, " ");
     }
   },
   created: function created() {
@@ -2081,7 +2089,7 @@ __webpack_require__.r(__webpack_exports__);
     validatedata: function validatedata(e) {
       var self = this;
 
-      if (e.keyCode === 13) {
+      if (this.name && e.keyCode === 13) {
         axios.post('api/store', {
           name: this.name
         }).then(function (response) {
@@ -2092,8 +2100,10 @@ __webpack_require__.r(__webpack_exports__);
         })["catch"](function (error) {
           console.log(error);
         });
-      } else if (e.keyCode === 50) {
-        alert('@ was pressed');
+      }
+
+      if (!this.name && e.keyCode === 13) {
+        toastr.error('', 'Task Name Required!');
       }
 
       this.log += e.key;
@@ -2122,12 +2132,18 @@ __webpack_require__.r(__webpack_exports__);
         axios.post('api/update/task/' + id, {
           editname: this.editname
         }).then(function (response) {
-          self.editname = '';
-          self.getData();
-          self.counttask();
-          document.getElementById('editname').contentEditable = false;
-          setInterval(document.getElementById('editname').contentEditable = true, 1000);
-          toastr.success('', 'To do Edited.');
+          if (response.status == 200) {
+            self.editname = '';
+            self.getData();
+            self.counttask();
+            document.getElementById('editname').contentEditable = false;
+            setInterval(document.getElementById('editname').contentEditable = true, 1000);
+            toastr.success('', 'To do Edited.');
+          }
+
+          if (response.status == 500) {
+            toastr.success('', 'Duplicate Task Found!');
+          }
         })["catch"](function (error) {
           console.log(error);
         });
@@ -36104,4 +36120,7 @@ Vue.compile = compileToFunctions;
 /******/ 	})();
 /******/ 	
 /************************************************************************/
-/******/ 	// run st
+/******/ 	// run startup
+/******/ 	__webpack_require__.x();
+/******/ })()
+;
