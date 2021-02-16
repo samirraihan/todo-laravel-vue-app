@@ -13,6 +13,7 @@ I uploaded every single files on git for easy use, for that reason project size 
 If still there is any problem please install this commends.
 
 <ul>
+    <li> npm install </li>
     <li> npm i vue </li>
     <li> npm i vue-loader </li>
     <li> npm i vue-router </li>
