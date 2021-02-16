@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 15, 2021 at 03:12 PM
--- Server version: 10.4.14-MariaDB
--- PHP Version: 7.4.11
+-- Generation Time: Feb 16, 2021 at 06:21 AM
+-- Server version: 10.4.13-MariaDB
+-- PHP Version: 7.4.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -59,8 +59,13 @@ CREATE TABLE `tasks` (
 INSERT INTO `tasks` (`id`, `name`, `status`) VALUES
 (1, 'One', 1),
 (2, 'Two', 2),
-(3, 'Three', 1),
-(4, 'Task02', 2);
+(3, 'Task <br>Three', 1),
+(4, 'Task02', 2),
+(5, 'Task To Do', 1),
+(6, 'tasks', 1),
+(7, 'Five MIn Task<br><br>', 1),
+(8, 'Edit Possible', 1),
+(17, 'tasks', 1);
 
 --
 -- Indexes for dumped tables
@@ -77,8 +82,7 @@ ALTER TABLE `status`
 -- Indexes for table `tasks`
 --
 ALTER TABLE `tasks`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `name` (`name`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -94,7 +98,7 @@ ALTER TABLE `status`
 -- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
