@@ -71,7 +71,7 @@
         },
         validatedata: function(e) {
             var self = this;
-            if (e.keyCode === 13) {
+            if (this.name && e.keyCode === 13) {
                 axios.post('api/store', {
                         name: this.name
                     })
@@ -83,8 +83,9 @@
                     .catch(function(error) {
                         console.log(error);
                     });
-            } else if (e.keyCode === 50) {
-                alert('@ was pressed');
+            }
+            if(!(this.name) && e.keyCode === 13){
+              toastr.error('', 'Task Name Required!')
             }
             this.log += e.key;
         },

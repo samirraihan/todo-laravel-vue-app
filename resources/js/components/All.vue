@@ -120,7 +120,9 @@
         },
         editdata(id) {
             var self = this;
-            if (!(this.editname)) {} else {
+            if (!(this.editname)) {
+              toastr.error('', 'Task Name Required!')
+            } else {
                 axios.post('api/update/task/' + id, {
                         editname: this.editname
                     })
