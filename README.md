@@ -1,4 +1,4 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://www.techalyst.com/content/uploads/editor-photos/blog/f4f731b1bfaa1c7b310c1a9a4b4918e14ffeaebc.png" width="400"></a></p>
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://miro.medium.com/max/984/1*IHI90aWzUnrcfHDuh08YTg.png" width="400"></a></p>
 
 ## About This Project
 
